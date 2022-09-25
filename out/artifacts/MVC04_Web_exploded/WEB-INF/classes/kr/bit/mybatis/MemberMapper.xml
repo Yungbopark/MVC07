@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kt.bit.mybatis.MemberMapper">
+
+
+<select id="memberList" resultType="memberVO">
+-- id는 식별자
+-- 이 sql문장 실행하려면 DAO에서 id 이름을 찾아가는 것
+-- 일반적으로 id는 DAO의 method 이름으로 만들어 줌
+-- result type : select 한 결과에서 데이터를 하나 씩 가지고 온 다음,
+-- 이 결과를 묶어주는 타입 (VO로 묶어야 다시 arrayList 로 들어감)
+    select * from member
+</select>
+
+<insert id="memberInsert" parameterType="memberVO">
+    insert into member (id, pass, name, age, email, phone)
+    values (#{id}, #{pass}, #{name}, #{age}, #{email}, #{phone});
+</insert>
+
+<delete id="memberDelete" parameterType="Integer">
+delete from member where num = #{num}
+</delete>
+
+<select id="memberContent" parameterType="Integer" resultType="memberVO">
+    select * from member where num = #{num}
+-- select는 묶어주는 타입, resultType 지정이 필요함
+</select>
+
+<update id="memberUpdate" parameterType="memberVO">
+    update member
+    set age = #{age}, email = #{email}, phone = #{phone}
+    where num = #{num}
+</update>
+
+<select id="memberLogin" parameterType="memberVO" resultType="String">
+    select name
+    from member
+    where id = #{id}
+      and pass = #{pass}
+
+</select>
+
+<select id="memberDbcheck" parameterType="String" resultType="String">
+    select id from member where id = #{memberId}
+</select>
+
+
+</mapper>
