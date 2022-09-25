@@ -23,7 +23,6 @@ public class MemberAjaxListController implements Controller {
 
         String s = objectMapper.writeValueAsString(memberVO);
 
-        System.out.println("s = " + s);
 
 
 
